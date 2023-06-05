@@ -1,0 +1,34 @@
+[1/10] Performing build step for 'bootloader'
+[1/1] cd /home/mrmagellan/Desktop/ASE/1602a/build/bootloader/esp-idf/esptool_py && /home/mrmagellan/.espressif/python_env/idf5.1_py3.9_env/bin/python /home/mrmagellan/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /home/mrmagellan/Desktop/ASE/1602a/build/bootloader/bootloader.bin
+Bootloader binary size 0x6730 bytes. 0x8d0 bytes (8%) free.
+[2/10] No install step for 'bootloader'
+[3/10] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/1602A.c.obj
+[4/10] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/i2c.c.obj
+/home/mrmagellan/Desktop/ASE/1602a/main/i2c.c: In function 'i2c_display_task':
+/home/mrmagellan/Desktop/ASE/1602a/main/i2c.c:26:10: warning: unused variable 'first_read' [-Wunused-variable]
+   26 |     bool first_read = true;
+      |          ^~~~~~~~~~
+/home/mrmagellan/Desktop/ASE/1602a/main/i2c.c:25:15: warning: unused variable 'err' [-Wunused-variable]
+   25 |     esp_err_t err;
+      |               ^~~
+/home/mrmagellan/Desktop/ASE/1602a/main/i2c.c:24:13: warning: unused variable 'average_temperature' [-Wunused-variable]
+   24 |     uint8_t average_temperature;
+      |             ^~~~~~~~~~~~~~~~~~~
+/home/mrmagellan/Desktop/ASE/1602a/main/i2c.c:23:13: warning: unused variable 'temperatures' [-Wunused-variable]
+   23 |     uint8_t temperatures[3] = {0, 0, 0};
+      |             ^~~~~~~~~~~~
+/home/mrmagellan/Desktop/ASE/1602a/main/i2c.c:22:13: warning: unused variable 'temperature' [-Wunused-variable]
+   22 |     uint8_t temperature;
+      |             ^~~~~~~~~~~
+[5/10] Completed 'bootloader'
+[6/10] Linking C static library esp-idf/main/libmain.a
+[7/10] Generating ld/sections.ld
+[8/10] Linking CXX executable 1602a.elf
+[9/10] Generating binary image from built executable
+esptool.py v4.5
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /home/mrmagellan/Desktop/ASE/1602a/build/1602a.bin
+[10/10] cd /home/mrmagellan/Desktop/ASE/1602a/build/esp-idf/esptool_py && /home/mrmagellan/.espressif/python_env/idf5.1_py3.9_env/bin/python /home/mrmagellan/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/mrmagellan/Desktop/ASE/1602a/build/partition_table/partition-table.bin /home/mrmagellan/Desktop/ASE/1602a/build/1602a.bin
+1602a.bin binary size 0x2e5f0 bytes. Smallest app partition is 0x100000 bytes. 0xd1a10 bytes (82%) free.
