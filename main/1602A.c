@@ -10,7 +10,6 @@
 
 #define DISPLAY_ADDR 0x27
 
-
 esp_err_t i2c_init(i2c_port_t i2cPort, int sdaPin, int sclPin, uint32_t clkSpeedHz)
 {
     i2c_config_t conf={
@@ -60,6 +59,8 @@ esp_err_t _1602A_send_data(i2c_port_t i2c_port, uint8_t command) {
     i2c_master_write_byte(cmd, (DISPLAY_ADDR << 1) | I2C_MASTER_WRITE, true);
     i2c_master_write_byte(cmd, high_nibble | 0x09, true);
     i2c_master_write_byte(cmd, high_nibble | 0x0D, true); // Send enable pulse (EN=1)
+
+    
     
     i2c_master_write_byte(cmd, low_nibble | 0x09,true);
     i2c_master_write_byte(cmd, low_nibble | 0x0D, true); // Send enable pulse (EN=1)
@@ -74,21 +75,10 @@ esp_err_t _1602A_send_data(i2c_port_t i2c_port, uint8_t command) {
 
 // Add the lcd_display_string function
 void _1602A_display_string(const char *str) {
-    _1602A_send_command(I2C_PORT, 0x01); // Clear display
-    vTaskDelay(10 / portTICK_PERIOD_MS); // Wait for display to clear
+    
     for (size_t i = 0; str[i] != '\0'; i++) {
         _1602A_send_data(I2C_PORT, str[i]);
     }
-}
-
-void _1602A_display_string_top(const char *str) {
-    _1602A_send_command(I2C_PORT, 0x80); // Move cursor to top row
-    _1602A_display_string(str); // Display string
-}
-
-void _1602A_display_string_bottom(const char *str) {
-    _1602A_send_command(I2C_PORT, 0xC0); // Move cursor to bottom row
-    _1602A_display_string(str); // Display string
 }
 
 esp_err_t _1602A_init(i2c_port_t i2c_port, uint8_t sens_addr, char *data, TickType_t time_out) {
@@ -123,9 +113,14 @@ esp_err_t _1602A_init(i2c_port_t i2c_port, uint8_t sens_addr, char *data, TickTy
     //wait 100 ms
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
+    //clear the display
+    _1602A_send_command(I2C_PORT, 0x01); // Clear display
+    vTaskDelay(10 / portTICK_PERIOD_MS); // Wait for display to clear
+
     //display string top
-    _1602A_display_string_top("Hello");
-    _1602A_display_string_bottom("World!");
+    _1602A_display_string("Hello");
+    _1602A_display_string("Hello");
+
 
 
 
