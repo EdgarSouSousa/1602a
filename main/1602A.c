@@ -75,6 +75,8 @@ esp_err_t _1602A_send_data(i2c_port_t i2c_port, uint8_t command) {
 
 // Add the lcd_display_string function
 void _1602A_display_string(const char *str) {
+    _1602A_send_command(I2C_PORT, 0x01); // Clear display
+    vTaskDelay(10 / portTICK_PERIOD_MS); // Wait for display to clear
     
     for (size_t i = 0; str[i] != '\0'; i++) {
         _1602A_send_data(I2C_PORT, str[i]);
@@ -110,19 +112,9 @@ esp_err_t _1602A_init(i2c_port_t i2c_port, uint8_t sens_addr, char *data, TickTy
         }
     }
 
+    _1602A_display_string("Hello World! ");
+
     //wait 100 ms
     vTaskDelay(100 / portTICK_PERIOD_MS);
-
-    //clear the display
-    _1602A_send_command(I2C_PORT, 0x01); // Clear display
-    vTaskDelay(10 / portTICK_PERIOD_MS); // Wait for display to clear
-
-    //display string top
-    _1602A_display_string("Hello");
-    _1602A_display_string("Hello");
-
-
-
-
     return ESP_OK;
 }
